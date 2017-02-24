@@ -24,6 +24,7 @@ void loop()
     recieveByte = Serial.read();
     if (recieveByte == (int)'\n') break;
     bufferStr.concat((char)recieveByte);
+    delay(100);
   }
 
   // set cursor to first line
@@ -34,10 +35,11 @@ void loop()
   lcd.print("N-YOBI MONTH KPI");
 
   // 受け取ったデータがあるなら表示
-  if (bufferStr.length() > 0) {
+  if (bufferStr.length() > 0 && Serial.available() == 0) {
     // デバッグ用 送り返すのは重いのでやらない
 //    Serial.print("I received: ");
 //    Serial.println(bufferStr);
+    
     lcd.setCursor(0, 1);
     lcd.print(bufferStr);
   }
